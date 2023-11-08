@@ -13,8 +13,9 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: neutral['light'],
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30, bottom: 120),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

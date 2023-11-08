@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   flutter_svg: ^2.0.9
+  flutter_spinkit: ^5.2.0
+  page_view_dot_indicator: ^2.3.0
 
 dev_dependencies:
   flutter_test:

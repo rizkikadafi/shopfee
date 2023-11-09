@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 import 'package:shopfee/data/models/onboarding_content_model.dart';
+import 'package:shopfee/views/pages/home.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 import 'package:shopfee/views/widgets/onboard.dart';
 
@@ -40,7 +43,9 @@ class _OnBoardingState extends State<OnBoarding> {
           Padding(
             padding: const EdgeInsets.only(right: 15),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.off(const Home());
+              },
               child: Center(
                 child: Text("Skip",
                     style: TextStyle(
@@ -55,6 +60,7 @@ class _OnBoardingState extends State<OnBoarding> {
       ),
       body: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (page) {
           setState(() {
             selectedPage = page;
@@ -76,7 +82,7 @@ class _OnBoardingState extends State<OnBoarding> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 200,
+              width: 100,
               child: PageViewDotIndicator(
                 currentItem: selectedPage,
                 count: pageCount,
@@ -86,6 +92,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 alignment: Alignment.centerLeft,
                 duration: const Duration(milliseconds: 200),
                 size: const Size(30, 12),
+                fadeEdges: false,
                 borderRadius: BorderRadius.circular(6),
                 boxShape: BoxShape.rectangle,
                 onItemClicked: (index) {
@@ -99,17 +106,33 @@ class _OnBoardingState extends State<OnBoarding> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (selectedPage == 2) selectedPage = -1;
+                if (selectedPage == 2) {
+                  Get.off(const Home(),
+                    transition: Transition.zoom, 
+                    curve: Curves.ease, 
+                    duration: const Duration(milliseconds: 1000)
+                  );
+                }
                 _pageController.animateToPage(
                   ++selectedPage,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease,
                 );
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(primaryBrandColor),
+                  backgroundColor: MaterialStatePropertyAll(primaryBrandColor),
+                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ))),
+              child: Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text("NEXT"),
+                  ),
+                  SvgPicture.asset("assets/img/arrow-right.svg")
+                ],
               ),
-              child: const Text("Next"),
             ),
           ],
         ),

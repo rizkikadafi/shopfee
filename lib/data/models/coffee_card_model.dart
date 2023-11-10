@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 class Coffee {
   String image, name, description;
   double rating;
-  int price;
+  int price, quantity = 1;
   late String formattedPrice;
 
   Coffee({

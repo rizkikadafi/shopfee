@@ -35,7 +35,10 @@ class _HomeState extends State<Home> {
                           const EdgeInsets.symmetric(horizontal: 20),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.all(10),
-                        child: SvgPicture.asset("assets/img/search.svg", color: primaryBrandColor,),
+                        child: SvgPicture.asset(
+                          "assets/img/search.svg",
+                          color: primaryBrandColor,
+                        ),
                       ),
                       hintText: "What would you like to drink today?",
                       hintStyle: TextStyle(color: textColor['disabled']),
@@ -62,21 +65,22 @@ class _HomeState extends State<Home> {
         return CustomScrollView(
           slivers: [
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final coffee = coffeeController.coffeeList[index];
-                  return CoffeeCard(
-                    image: coffee.image, 
-                    name: coffee.name, 
-                    description: coffee.description, 
-                    rating: coffee.rating, 
-                    price: coffee.formattedPrice,
-                    action: () {coffeeController.goToOrderPage(coffee);},
-                  );
-                },
-                childCount: coffeeController.coffeeList.length,
-              )
-            )
+                delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final coffee = coffeeController.coffeeList[index];
+                return CoffeeCard(
+                  image: coffee.image,
+                  name: coffee.name,
+                  description: coffee.description,
+                  rating: coffee.rating,
+                  price: coffee.formattedPrice,
+                  action: () {
+                    coffeeController.goToOrderPage(coffee);
+                  },
+                );
+              },
+              childCount: coffeeController.coffeeList.length,
+            ))
           ],
         );
       }),

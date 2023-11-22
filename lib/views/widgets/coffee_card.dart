@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:shopfee/viewmodels/coffee_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 
 typedef VoidCallback = void Function();
@@ -26,7 +24,7 @@ class CoffeeCard extends StatelessWidget {
       leading: Stack(
         clipBehavior: Clip.none,
         children: [
-          Image.asset(image),
+          Image.network(image),
           Positioned(
             bottom: -10,
             left: 2,

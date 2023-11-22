@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:shopfee/viewmodels/coffee_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 import 'package:shopfee/views/widgets/coffee_card.dart';
+import 'package:shopfee/views/widgets/skeleton.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -67,19 +69,30 @@ class _HomeState extends State<Home> {
             SliverList(
                 delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final coffee = coffeeController.coffeeList[index];
-                return CoffeeCard(
-                  image: coffee.image,
-                  name: coffee.name,
-                  description: coffee.description,
-                  rating: coffee.rating,
-                  price: coffee.formattedPrice,
-                  action: () {
-                    coffeeController.goToOrderPage(coffee);
-                  },
-                );
+                  if(coffeeController.coffees.isEmpty) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        width: 100, // Adjust the width as needed
+                        height: 100, // Adjust the height as needed
+                        color: Colors.white, // Set the base color
+                      ),
+                    );
+                  }
+                  final coffee = coffeeController.coffees[index];
+                  return CoffeeCard(
+                    image: coffee.image,
+                    name: coffee.name,
+                    description: coffee.description,
+                    rating: coffee.rating,
+                    price: coffee.formattedSmallPrice,
+                    action: () {
+                      coffeeController.goToOrderPage(coffee);
+                    },
+                  );
               },
-              childCount: coffeeController.coffeeList.length,
+              childCount: coffeeController.coffees.length
             ))
           ],
         );

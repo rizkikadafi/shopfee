@@ -31,7 +31,7 @@ class OrderPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               color: neutral['medium'],
               clipBehavior: Clip.none,
-              child: Image.asset(
+              child: Image.network(
                 selectedCoffee.image,
                 fit: BoxFit.fill,
               ),
@@ -80,7 +80,7 @@ class OrderPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                selectedCoffee.formattedPrice,
+                                selectedCoffee.formattedSmallPrice,
                                 style: TextStyle(
                                   color: textColor['heading'],
                                   fontWeight: FontWeight.bold,

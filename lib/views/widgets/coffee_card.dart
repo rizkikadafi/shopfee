@@ -21,13 +21,14 @@ class CoffeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: 30.0,
       leading: Stack(
         clipBehavior: Clip.none,
         children: [
           Image.network(image),
           Positioned(
-            bottom: -10,
-            left: 2,
+            bottom: -20,
+            left: 0,
             child: Container(
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -63,13 +64,18 @@ class CoffeeCard extends StatelessWidget {
         ),
       ),
       subtitle: Text(description),
-      trailing: Text(
-        price,
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 16,
-          color: textColor['heading'],
-        ),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            price,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+              color: textColor['heading'],
+            ),
+          ),
+        ],
       ),
       onTap: action,
     );

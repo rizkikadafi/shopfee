@@ -44,7 +44,7 @@ class _OnBoardingState extends State<OnBoarding> {
             padding: const EdgeInsets.only(right: 15),
             child: GestureDetector(
               onTap: () {
-                Get.off(const Home());
+                Get.off(const HomePage());
               },
               child: Center(
                 child: Text("Skip",
@@ -107,11 +107,10 @@ class _OnBoardingState extends State<OnBoarding> {
             ElevatedButton(
               onPressed: () {
                 if (selectedPage == 2) {
-                  Get.off(const Home(),
-                    transition: Transition.zoom, 
-                    curve: Curves.ease, 
-                    duration: const Duration(milliseconds: 1000)
-                  );
+                  Get.off(const HomePage(),
+                      transition: Transition.zoom,
+                      curve: Curves.ease,
+                      duration: const Duration(milliseconds: 1000));
                 }
                 _pageController.animateToPage(
                   ++selectedPage,

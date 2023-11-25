@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:shopfee/viewmodels/bottomsheet_menu_controller.dart';
 import 'package:shopfee/viewmodels/coffee_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
+import 'package:shopfee/views/widgets/bottom_sheet.dart';
 import 'package:shopfee/views/widgets/coffee_card.dart';
 import 'package:shopfee/views/widgets/skeleton.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   final CoffeeController coffeeController = Get.put(CoffeeController());
+  final BottomSheetMenuController menuController = Get.put(BottomSheetMenuController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,39 +67,40 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Obx(() {
-        return CustomScrollView(
-          slivers: [
-            SliverList(
-                delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                  if(coffeeController.coffees.isEmpty) {
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        width: 100, // Adjust the width as needed
-                        height: 100, // Adjust the height as needed
-                        color: Colors.white, // Set the base color
-                      ),
-                    );
-                  }
-                  final coffee = coffeeController.coffees[index];
-                  return CoffeeCard(
-                    image: coffee.image,
-                    name: coffee.name,
-                    description: coffee.description,
-                    rating: coffee.rating,
-                    price: coffee.formattedSmallPrice,
-                    action: () {
-                      coffeeController.goToOrderPage(coffee);
-                    },
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 80),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                if (coffeeController.coffees.isEmpty) {
+                  return Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: 100, // Adjust the width as needed
+                      height: 100, // Adjust the height as needed
+                      color: Colors.white, // Set the base color
+                    ),
                   );
-              },
-              childCount: coffeeController.coffees.length
-            ))
-          ],
+                }
+                final coffee = coffeeController.coffees[index];
+                return CoffeeCard(
+                  image: coffee.image,
+                  name: coffee.name,
+                  description: coffee.description,
+                  rating: coffee.rating,
+                  price: coffee.formattedSmallPrice,
+                  action: () {
+                    coffeeController.goToOrderPage(coffee);
+                  },
+                );
+              }, childCount: coffeeController.coffees.length))
+            ],
+          ),
         );
       }),
+      bottomSheet: const BottomSheetMenu(),
     );
   }
 }

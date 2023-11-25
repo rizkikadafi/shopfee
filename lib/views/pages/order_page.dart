@@ -13,14 +13,8 @@ class OrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: textColor['heading'],
         title: const Text("Customize Order"),
-        titleTextStyle: TextStyle(
-          color: textColor['heading'],
-          fontSize: 20,
-        ),
-        iconTheme: IconThemeData(
-          color: neutral['heading'],
-        ),
         backgroundColor: neutral['light'],
       ),
       body: Stack(

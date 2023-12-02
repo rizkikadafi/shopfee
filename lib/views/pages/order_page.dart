@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shopfee/data/models/coffee_card_model.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
+import 'package:shopfee/views/widgets/add_order_bottom_sheet.dart';
 import 'package:shopfee/views/widgets/quantity_widget.dart';
 
 class OrderPage extends StatelessWidget {
@@ -125,6 +126,7 @@ class OrderPage extends StatelessWidget {
           )
         ],
       ),
+      bottomSheet: const AddOrderBottomSheet(),
     );
   }
 }

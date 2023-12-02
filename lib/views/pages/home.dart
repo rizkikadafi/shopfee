@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:shopfee/viewmodels/bottomsheet_menu_controller.dart';
 import 'package:shopfee/viewmodels/coffee_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
@@ -18,7 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final CoffeeController coffeeController = Get.put(CoffeeController());
-  final BottomSheetMenuController menuController = Get.put(BottomSheetMenuController());
+  final BottomSheetMenuController menuController =
+      Get.put(BottomSheetMenuController());
+
+  @override
+  void initState() {
+    coffeeController.fetchCoffees();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +79,9 @@ class _HomePageState extends State<HomePage> {
             slivers: [
               SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                if (coffeeController.coffees.isEmpty) {
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey[300]!,
-                    highlightColor: Colors.grey[100]!,
-                    child: Container(
-                      width: 100, // Adjust the width as needed
-                      height: 100, // Adjust the height as needed
-                      color: Colors.white, // Set the base color
-                    ),
-                  );
+                  print(coffeeController.isLoading.value);
+                if (coffeeController.isLoading.value) {
+                  return const CoffeeCardSkeleton();
                 }
                 final coffee = coffeeController.coffees[index];
                 return CoffeeCard(

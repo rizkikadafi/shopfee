@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shopfee/viewmodels/bottomsheet_menu_controller.dart';
+import 'package:shopfee/viewmodels/cart_controller.dart';
 import 'package:shopfee/viewmodels/coffee_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 import 'package:shopfee/views/widgets/bottom_sheet.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final CartController cartController = Get.put(CartController());
   final CoffeeController coffeeController = Get.put(CoffeeController());
   final BottomSheetMenuController menuController =
       Get.put(BottomSheetMenuController());
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> {
             slivers: [
               SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                  print(coffeeController.isLoading.value);
+                  // print(coffeeController.isLoading.value);
                 if (coffeeController.isLoading.value) {
                   return const CoffeeCardSkeleton();
                 }

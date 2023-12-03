@@ -1,31 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:shopfee/data/models/cart_item_model.dart';
 import 'package:shopfee/data/models/coffee_card_model.dart';
 import 'package:shopfee/viewmodels/bottomsheet_order_controller.dart';
+import 'package:shopfee/viewmodels/cart_controller.dart';
 import 'package:shopfee/viewmodels/quantity_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 import 'package:shopfee/views/widgets/add_order_bottom_sheet.dart';
-import 'package:shopfee/views/widgets/custom_menu.dart';
 import 'package:shopfee/views/widgets/quantity_widget.dart';
 
 class OrderPage extends StatefulWidget {
   final Coffee selectedCoffee;
 
-  OrderPage({super.key, required this.selectedCoffee});
-
-  BottomSheetOrderController orderController = BottomSheetOrderController();
+  const OrderPage({super.key, required this.selectedCoffee});
 
   @override
   State<OrderPage> createState() => _OrderPageState();
 }
 
 class _OrderPageState extends State<OrderPage> {
-  QuantityController quantityController = QuantityController();
+  CartController cartController = Get.put(CartController());
+  BottomSheetOrderController orderController = BottomSheetOrderController();
+  QuantityController quantityController =
+      QuantityController(ValueNotifier<int>(1));
+
+
+  void addToCart(BuildContext context) {
+    final CartItem cartItem = CartItem(
+      coffee: widget.selectedCoffee,
+      quantity: quantityController.quantity.value,
+    );
+
+    cartController.addToCart(cartItem);
+
+    Get.snackbar(
+      'Added to Cart',
+      '${widget.selectedCoffee.name} added to your cart.',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: const Duration(seconds: 2),
+    );
+  }
   @override
-    void initState() {
-      widget.orderController.price.value = widget.selectedCoffee.smallPrice;
-      super.initState();
-    }
+  void initState() {
+    orderController.price.value = widget.selectedCoffee.smallPrice;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +141,8 @@ class _OrderPageState extends State<OrderPage> {
                                     ),
                                   ),
                                 ),
-                                CoffeeQuantityWidget(controller: quantityController),
+                                CoffeeQuantityWidget(
+                                    controller: quantityController),
                               ],
                             ),
                           ),
@@ -131,31 +152,6 @@ class _OrderPageState extends State<OrderPage> {
                               Text("${widget.selectedCoffee.rating}")
                             ],
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.symmetric(vertical: 10),
-                          //   child: Divider(
-                          //     thickness: 2,
-                          //     indent: 5,
-                          //     endIndent: 5,
-                          //     color: brand[400],
-                          //   ),
-                          // ),
-                          // Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          //   children: [
-                          //     Text(
-                          //       "Customize",
-                          //       style: TextStyle(
-                          //         color: textColor['heading'],
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 16,
-                          //       ),
-                          //     ),
-                          //     const CustomMenu(
-                          //         customizeData: "Size",
-                          //         optionMenu: ["Small", "Medium", "Large"]),
-                          //   ],
-                          // )
                         ],
                       )),
                 ),
@@ -165,8 +161,9 @@ class _OrderPageState extends State<OrderPage> {
         ],
       ),
       bottomSheet: AddOrderBottomSheet(
-        controller: widget.orderController,
+        controller: orderController,
         quantityController: quantityController,
+        onAddToCart: () => addToCart(context),
       ),
     );
   }

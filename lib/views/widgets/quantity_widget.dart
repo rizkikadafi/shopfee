@@ -11,18 +11,16 @@ class CoffeeQuantityWidget extends StatefulWidget {
 }
 
 class _CoffeeQuantityWidgetState extends State<CoffeeQuantityWidget> {
-  int quantity = 1;
-
   void increment() {
     setState(() {
-      widget.controller.setQuantity(quantity++);
+      widget.controller.setQuantity(widget.controller.quantity.value + 1);
     });
   }
 
   void decrement() {
     setState(() {
-      if (quantity > 1) {
-        widget.controller.setQuantity(quantity--);
+      if (widget.controller.quantity.value > 1) {
+        widget.controller.setQuantity(widget.controller.quantity.value - 1);
       }
     });
   }
@@ -43,7 +41,11 @@ class _CoffeeQuantityWidgetState extends State<CoffeeQuantityWidget> {
               icon: const Icon(
                 Icons.remove,
               )),
-          Text(quantity.toString()),
+          ValueListenableBuilder(
+              valueListenable: widget.controller.quantity,
+              builder: (context, value, child) {
+                return Text(value.toString());
+              }),
           IconButton(onPressed: increment, icon: const Icon(Icons.add))
         ],
       ),

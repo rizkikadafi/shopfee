@@ -1,7 +1,9 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 
-class QuantityController extends GetxController {
-  final RxInt quantity = 1.obs;
+class QuantityController {
+  final ValueNotifier<int> quantity;
+
+  QuantityController(this.quantity);
 
   void setQuantity(int value) {
     quantity.value = value;

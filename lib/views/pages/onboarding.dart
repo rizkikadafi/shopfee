@@ -6,6 +6,7 @@ import 'package:shopfee/data/models/onboarding_content_model.dart';
 import 'package:shopfee/views/pages/home.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 import 'package:shopfee/views/widgets/onboard.dart';
+import 'package:shopfee/views/pages/register_page.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({super.key});
@@ -44,7 +45,7 @@ class _OnBoardingState extends State<OnBoarding> {
             padding: const EdgeInsets.only(right: 15),
             child: GestureDetector(
               onTap: () {
-                Get.off(const HomePage());
+                Get.off(const RegisterPage());
               },
               child: Center(
                 child: Text("Skip",
@@ -107,7 +108,7 @@ class _OnBoardingState extends State<OnBoarding> {
             ElevatedButton(
               onPressed: () {
                 if (selectedPage == 2) {
-                  Get.off(const HomePage(),
+                  Get.off(const RegisterPage(),
                       transition: Transition.zoom,
                       curve: Curves.ease,
                       duration: const Duration(milliseconds: 1000));

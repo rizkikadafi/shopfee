@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       }),
-      bottomSheet: const BottomSheetMenu(),
+      bottomSheet: BottomSheetMenu(menuController: menuController,),
     );
   }
 }

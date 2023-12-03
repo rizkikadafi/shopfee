@@ -25,6 +25,10 @@ class _OrderPageState extends State<OrderPage> {
   QuantityController quantityController =
       QuantityController(ValueNotifier<int>(1));
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   void addToCart(BuildContext context) {
     final CartItem cartItem = CartItem(
@@ -33,13 +37,7 @@ class _OrderPageState extends State<OrderPage> {
     );
 
     cartController.addToCart(cartItem);
-
-    Get.snackbar(
-      'Added to Cart',
-      '${widget.selectedCoffee.name} added to your cart.',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 2),
-    );
+    showSnackbar(context, '${widget.selectedCoffee.name} added to your cart.');
   }
   @override
   void initState() {

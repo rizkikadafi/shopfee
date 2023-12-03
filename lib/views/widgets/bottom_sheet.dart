@@ -8,15 +8,14 @@ import 'package:shopfee/views/pages/profile_page.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 
 class BottomSheetMenu extends StatefulWidget {
-  const BottomSheetMenu({super.key});
+  final BottomSheetMenuController menuController;
+  const BottomSheetMenu({super.key, required this.menuController});
 
   @override
   State<BottomSheetMenu> createState() => _BottomSheetMenuState();
 }
 
 class _BottomSheetMenuState extends State<BottomSheetMenu> {
-  final BottomSheetMenuController menuController =
-      Get.put(BottomSheetMenuController());
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -30,9 +29,9 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                 buildMenuItem(
                   'Home',
                   'assets/img/fi_home.svg',
-                  menuController.homeActive.value,
+                  widget.menuController.homeActive.value,
                   () {
-                    menuController.setActivePage(true, false, false);
+                    widget.menuController.setActivePage(true, false, false);
                     Get.to(const HomePage(),
                         transition: Transition.noTransition);
                   },
@@ -40,9 +39,9 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                 buildMenuItem(
                   'History',
                   'assets/img/fi_history.svg',
-                  menuController.historyActive.value,
+                  widget.menuController.historyActive.value,
                   () {
-                    menuController.setActivePage(false, true, false);
+                    widget.menuController.setActivePage(false, true, false);
                     Get.to(const HistoryPage(),
                         transition: Transition.noTransition);
                   },
@@ -50,9 +49,9 @@ class _BottomSheetMenuState extends State<BottomSheetMenu> {
                 buildMenuItem(
                   'Profile',
                   'assets/img/fi_profile.svg',
-                  menuController.profileActive.value,
+                  widget.menuController.profileActive.value,
                   () {
-                    menuController.setActivePage(false, false, true);
+                    widget.menuController.setActivePage(false, false, true);
                     Get.to(const ProfilePage(),
                         transition: Transition.noTransition);
                   },

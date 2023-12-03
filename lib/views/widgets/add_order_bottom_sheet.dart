@@ -69,6 +69,7 @@ class _AddOrderBottomSheetState extends State<AddOrderBottomSheet> {
                                 borderRadius: BorderRadius.circular(15),
                               ))),
                           onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("test")));
                             widget.onAddToCart();
                             Get.back();
                           },

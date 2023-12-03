@@ -12,6 +12,7 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  BottomSheetMenuController controller = Get.put(BottomSheetMenuController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,7 @@ class _HistoryPageState extends State<HistoryPage> {
           'History Order'
         ),
       ),
-      bottomSheet: const BottomSheetMenu(),
+      bottomSheet: BottomSheetMenu(menuController: controller,),
       body: Image.asset('assets/img/order.png'),
     );
   }

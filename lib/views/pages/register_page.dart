@@ -24,76 +24,76 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        foregroundColor: textColor['heading'],
-        backgroundColor: neutral['light'],
-      ),
-      body: ListView(children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Logo2(),
-            ),
-            SizedBox(height: 60,),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextField(
-                    controller: _namaController,
-                    decoration: InputDecoration(labelText: 'Name'),
-                  ),
-                  SizedBox(height: 10.0),
-                  TextField(
-                    controller: _nomorController,
-                    decoration: InputDecoration(labelText: 'Phone Number'),
-                  ),
-                  SizedBox(height: 30.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    child: Text('Register'),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-                    height: 90,
-                  ),
-            Row(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Logo2(),
+          SizedBox(
+            height: 60,
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Already have an account?",
-                  style: TextStyle(color: Colors.black),
+                TextField(
+                  controller: _namaController,
+                  decoration: InputDecoration(labelText: 'Name'),
                 ),
-                SizedBox(
-                  width: 4,
+                SizedBox(height: 10.0),
+                TextField(
+                  controller: _nomorController,
+                  decoration: InputDecoration(labelText: 'Phone Number'),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => LoginPage()));
+                SizedBox(height: 30.0),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(primaryBrandColor),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ))),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
                   },
-                  child: new Text(
-                    "Login now",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 205, 166, 122)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text('Register'),
                   ),
                 ),
               ],
             ),
-          ],
-        ),
-      ]),
+          ),
+          SizedBox(
+            height: 90,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Already have an account?",
+                style: TextStyle(color: Colors.black),
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => LoginPage()));
+                },
+                child: new Text(
+                  "Login now",
+                  style: TextStyle(color: Color.fromARGB(255, 205, 166, 122)),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

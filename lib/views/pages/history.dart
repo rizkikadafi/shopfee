@@ -23,6 +23,7 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
       ),
       bottomSheet: const BottomSheetMenu(),
+      body: Image.asset('assets/img/order.png'),
     );
   }
 }

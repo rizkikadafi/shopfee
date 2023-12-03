@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shopfee/viewmodels/bottomsheet_order_controller.dart';
+import 'package:shopfee/viewmodels/quantity_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 
 class AddOrderBottomSheet extends StatefulWidget {
-  const AddOrderBottomSheet({super.key});
+  final BottomSheetOrderController controller;
+  final QuantityController quantityController;
+  const AddOrderBottomSheet(
+      {super.key, required this.controller, required this.quantityController});
 
   @override
   State<AddOrderBottomSheet> createState() => _AddOrderBottomSheetState();
@@ -12,31 +18,35 @@ class _AddOrderBottomSheetState extends State<AddOrderBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
+        backgroundColor: Colors.transparent,
         onClosing: () {},
         builder: (BuildContext context) {
           return SizedBox(
-            height: 80,
+            height: 100,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Total"),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                        "Rp25.000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                        
+                      const Text(
+                        "Total",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          formattedPrice(widget.controller.price.value *
+                              widget.quantityController.quantity.value),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -45,15 +55,22 @@ class _AddOrderBottomSheetState extends State<AddOrderBottomSheet> {
                         backgroundColor:
                             MaterialStatePropertyAll(primaryBrandColor),
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(15),
                         ))),
                     onPressed: () {},
-                    child: const Text("Add Order"),
+                    child: const Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Text("Add Order"),
+                    ),
                   )
                 ],
               ),
             ),
           );
         });
+  }
+
+  String formattedPrice(int price) {
+    return NumberFormat.currency(locale: 'id_ID', symbol: 'Rp').format(price);
   }
 }

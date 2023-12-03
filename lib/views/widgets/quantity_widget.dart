@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shopfee/viewmodels/quantity_controller.dart';
 import 'package:shopfee/views/themes/color_scheme.dart';
 
 class CoffeeQuantityWidget extends StatefulWidget {
-  const CoffeeQuantityWidget({super.key});
+  final QuantityController controller;
+  const CoffeeQuantityWidget({super.key, required this.controller});
 
   @override
   State<CoffeeQuantityWidget> createState() => _CoffeeQuantityWidgetState();
@@ -13,14 +15,14 @@ class _CoffeeQuantityWidgetState extends State<CoffeeQuantityWidget> {
 
   void increment() {
     setState(() {
-      quantity++;
+      widget.controller.setQuantity(quantity++);
     });
   }
 
   void decrement() {
     setState(() {
       if (quantity > 1) {
-        quantity--;
+        widget.controller.setQuantity(quantity--);
       }
     });
   }
